@@ -17,6 +17,10 @@ class Project extends Model
         return $this->belongsTo(Type::class);
     }
 
+    public function technologies() {
+        return $this->belongsToMany(Technology::class);
+    }
+
     public function isImageAUrl() {
         return filter_var($this->thumb, FILTER_VALIDATE_URL);
     }

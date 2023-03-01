@@ -15,7 +15,7 @@ class TechnologiesTableSeeder extends Seeder
      */
     public function run()
     {
-        $technologies = ['HTML5', 'CSS3', 'SCSS', 'Bootstrap 5.2', 'JS', 'Vue 3', 'PHP8', 'Laravel 9', 'Nodejs'];
+        $technologies = ['HTML5', 'CSS3', 'SCSS', 'Bootstrap 5.2', 'JS', 'Vue 3', 'PHP8', 'Laravel 9', 'Node.js'];
         foreach ($technologies as $technologyName) {
             $technology = new Technology();
             $technology->name = $technologyName;
