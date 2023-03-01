@@ -35,8 +35,8 @@
                         <tr>
                             <th scope="col">#id</th>
                             <th scope="col">Title</th>
-                            <th scope="col">used_language</th>
-                            <th scope="col">project_date</th>
+                            <th scope="col">Technologies</th>
+                            <th scope="col">Type</th>
                             <th scope="col">
                                 <a href="{{ route('admin.projects.create') }}" class="btn btn-sm btn-info">
                                     Create new project
@@ -49,8 +49,8 @@
                         <tr>
                             <th scope="row">{{ $project->id }}</th>
                             <td>{{ $project->title }}</td>
-                            <td>{{ $project->used_language }}</td>
                             <td>{{ $project->project_date }}</td>
+                            <td>{{ $project->type->name }}</td>
                             <td>
                                 <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-primary">
                                     <i class="fa-solid fa-eye"></i>
