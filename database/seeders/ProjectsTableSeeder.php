@@ -24,7 +24,6 @@ class ProjectsTableSeeder extends Seeder
             $newProject->type_id = Type::inRandomOrder()->first()->id;
             $newProject->title = $faker->unique()->sentence(5);
             $newProject->thumb = 'imgs/fake-duck.jpg';
-            $newProject->used_language = $faker->word();
             $newProject->link = $faker->url();
             $newProject->save();
         }
