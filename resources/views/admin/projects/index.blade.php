@@ -49,7 +49,13 @@
                         <tr>
                             <th scope="row">{{ $project->id }}</th>
                             <td>{{ $project->title }}</td>
-                            <td></td>
+                            <td>
+                                @forelse ($project->technologies as $technology)
+                                    #{{ $technology->name }}
+                                @empty
+                                    No technologies
+                                @endforelse
+                            </td>
                             <td>{{ $project->type->name }}</td>
                             <td>
                                 <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-primary">
