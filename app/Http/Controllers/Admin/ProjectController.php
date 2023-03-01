@@ -95,7 +95,8 @@ class ProjectController extends Controller
             'title' => ['required', 'min:2', 'max:80', Rule::unique('projects')->ignore($project->id)],
             'thumb' => 'required|image|max:500',
             'link' => 'required|active_url',
-            'type_id' => 'required|exists:types,id'
+            'type_id' => 'required|exists:types,id',
+            'technologies' => 'array|exists:technologies,id'
         ]);
 
         if ($request->hasFile('thumb')){
@@ -107,6 +108,7 @@ class ProjectController extends Controller
         }
 
         $project->update($data);
+        $project->technologies()->sync($data['technologies']);
         return redirect()->route('admin.projects.show', $project->id);
     }
 
@@ -159,15 +161,15 @@ class ProjectController extends Controller
     /**
      * Force delete project data
      *
-    //  * @param Project $project
+     * @param Project $project
      * @return \Illuminate\Http\Response
      */
-    public function forceDelete($id)
+    public function forceDelete(Project $project, $id)
     {
         // if(!$project->isImageAUrl()) {
         //     Storage::delete($project->thumb);
         // }
-
+        $project->technologies()->sync([]);
         Project::where('id', $id)->withTrashed()->forceDelete();
         return redirect()->route('admin.projects.index')->with('message', "Delete definetely")->with('alert-type', 'alert-danger');
     }
