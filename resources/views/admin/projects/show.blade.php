@@ -10,9 +10,11 @@
                 <h2 class="card-title fw-bold">
                     {{ $project->title }}
                 </h2>
-                <p class="mt-4">
-                    Language used: {{ $project->used_language }}
-                </p>
+                <div class="mt-4">
+                    @foreach ($project->technologies as $project)
+                        #{{ $project->name }}
+                    @endforeach
+                </div>
                 <div class="my-4">
                     @if (str_starts_with($project->thumb, 'http'))
                         <img src="{{ $project->thumb }}"

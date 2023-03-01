@@ -41,22 +41,17 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        @foreach ($technologies as $technology)
+                            <input type="checkbox" class="form-check-input" name="technologies[]" value="{{ $technology->id }}">
+                            <label class="form-check-label">{{ $technology->name }}</label>
+                        @endforeach
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label" for="thumb">
                             Thumb
                         </label>
                         <input type="file" class="form-control @error('thumb') is-invalid @enderror" name="thumb" value="{{ old('thumb') ?? $project->thumb }}">
                         @error('thumb')
-                        <div class="invalid-feedback">
-                            {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="used_language">
-                            Used Language
-                        </label>
-                        <input type="text" class="form-control @error('used_language') is-invalid @enderror" name="used_language" value="{{ old('used_language') ?? $project->used_language }}">
-                        @error('used_language')
                         <div class="invalid-feedback">
                             {{$message}}
                         </div>

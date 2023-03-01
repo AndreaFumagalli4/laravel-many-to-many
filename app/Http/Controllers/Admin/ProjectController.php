@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -30,7 +31,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create', [ 'project' => new Project(), 'types' => Type::all() ]);
+        return view('admin.projects.create', [ 'project' => new Project(), 'types' => Type::all(), 'technologies' => Technology::all() ]);
     }
 
     /**
@@ -44,15 +45,16 @@ class ProjectController extends Controller
         $data = $request->validate([
             'title' => 'required|min:2|max:80|unique:projects',
             'thumb' => 'required|image|max:500',
-            'used_language' => 'required|max:255',
             'link' => 'required|active_url',
-            'type_id' => 'required|exists:types,id'
+            'type_id' => 'required|exists:types,id',
+            'technologies' => 'array|exists:technologies,id'
         ]);
         $data['thumb'] = Storage::put('imgs/', $data['thumb']);
         
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
+        $newProject->technologies()->sync($data['technologies']);
         
         return redirect()->route('admin.projects.show', $newProject->id);
     }
@@ -76,7 +78,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', ['project' => $project, 'types' => Type::all()]);
+        return view('admin.projects.edit', ['project' => $project, 'types' => Type::all(), 'technologies' => Technology::all() ]);
         
     }
 
@@ -92,7 +94,6 @@ class ProjectController extends Controller
         $data = $request->validate([
             'title' => ['required', 'min:2', 'max:80', Rule::unique('projects')->ignore($project->id)],
             'thumb' => 'required|image|max:500',
-            'used_language' => 'required|max:255',
             'link' => 'required|active_url',
             'type_id' => 'required|exists:types,id'
         ]);

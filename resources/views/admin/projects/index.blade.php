@@ -49,7 +49,7 @@
                         <tr>
                             <th scope="row">{{ $project->id }}</th>
                             <td>{{ $project->title }}</td>
-                            <td>{{ $project->project_date }}</td>
+                            <td></td>
                             <td>{{ $project->type->name }}</td>
                             <td>
                                 <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-primary">
